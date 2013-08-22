@@ -8,7 +8,9 @@ window.Tooltip = class Tooltip
         $ document .on \mouseover "[data-tooltip]" ({currentTarget}:evt) ~>
             content = $ currentTarget .attr 'data-tooltip'
             content = unescape content
-            @display "<p>#{content}</p>"
+            $content = $ "<p></p>"
+                ..html content
+            @display $content
 
         $ document .on \mouseout "[data-tooltip]" @~hide
 
