@@ -9,6 +9,7 @@ window.Tooltip = class Tooltip
             content = $ currentTarget .attr 'data-tooltip'
             content = unescape content
             $content = $ "<p></p>"
+                ..addClass 'only-child'
                 ..html content
             @display $content
 
