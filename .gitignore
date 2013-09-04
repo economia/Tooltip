@@ -1,0 +1,5 @@
+/node_modules
+/*.sublime-workspace
+*.js
+*.css
+/www/js/script.js.map
