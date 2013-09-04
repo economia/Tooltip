@@ -1,7 +1,7 @@
 require! {
     fs
 }
-version = "1.2"
+version = "1.1.1"
 build-styles = (options = {}) ->
     require! stylus
     (err, data) <~ fs.readFile "#__dirname/www/styl/tooltip.styl"
