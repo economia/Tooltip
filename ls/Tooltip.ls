@@ -8,6 +8,7 @@ window.Tooltip = class Tooltip
         $ document .on \mouseover "[data-tooltip]" ({currentTarget}:evt) ~>
             content = $ currentTarget .attr 'data-tooltip'
             content = unescape content
+            return if not content.length
             $content = $ "<p></p>"
                 ..addClass 'only-child'
                 ..html content
