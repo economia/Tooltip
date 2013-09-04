@@ -37,7 +37,7 @@ window.Tooltip = class Tooltip
         top -= @$element.height!
         left = Math.max dX + 12, left
         left = Math.min left, dX + maxLeft
-        if top <= 10 + dY
+        if top <= 19 + dY
             topMargin = parseInt @$element.css 'margin-top'
             top += @$element.height! - 2 * topMargin
         @$element
