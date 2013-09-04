@@ -61,7 +61,7 @@ window.Tooltip = class Tooltip
 
     setPositionByMouse: ->
         @mouseBound = true
-        @reposition @lastMousePosition
+        @reposition @lastMousePosition if @lastMousePosition
 
     onMouseMove: (evt) ~>
         @lastMousePosition = [evt.pageX, evt.pageY, evt.clientX, evt.clientY]
