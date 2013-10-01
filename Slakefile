@@ -28,24 +28,23 @@ build-all-scripts = (cb) ->
 
 combine-scripts = (options = {}) ->
     require! uglify: "uglify-js"
-    (err, files) <~ fs.readdir "#__dirname/www/js"
-    files .= filter -> it isnt 'script.js.map'
-    files .= map -> "./www/js/#it"
-    minifyOptions = {}
-    if not options.compression
-        minifyOptions
-            ..compress     = no
-            ..mangle       = no
-            ..outSourceMap = "../js/script.js.map"
-            ..sourceRoot   = "../../"
-    result = uglify.minify files, minifyOptions
+    ["www/js/Tooltip.js" "www/js/Tooltip.d3"].forEach (file) ->
+        minifyOptions = {}
+        if not options.compression
+            minifyOptions
+                ..compress     = no
+                ..mangle       = no
+                ..outSourceMap = "../js/script.js.map"
+                ..sourceRoot   = "../../"
+        result = uglify.minify [file], minifyOptions
 
-    {map, code} = result
-    if not options.compression
-        code += "\n//@ sourceMappingURL=./js/script.js.map"
-        fs.writeFile "#__dirname/www/js/script.js.map", map
-    isMin = if options.compression then ".min" else ""
-    fs.writeFile "#__dirname/www/v#version#isMin.js", code
+        {map, code} = result
+        if not options.compression
+            code += "\n//@ sourceMappingURL=./js/script.js.map"
+            fs.writeFile "#__dirname/www/js/script.js.map", map
+        isMin = if options.compression then ".min" else ""
+        isD3 = if file is \www/js/Tooltip.d3 then ".d3" else ""
+        fs.writeFile "#__dirname/www/v#version#isD3#isMin.js", code
 
 run-script = (file) ->
     require! child_process.exec
