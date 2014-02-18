@@ -8,7 +8,10 @@ window.Tooltip = class Tooltip
     watchElements: ->
         d3.select document .on "mouseover.#{@eventId}" ~>
             currentTarget = d3.event.target
-            content = currentTarget.getAttribute \data-tooltip
+            do
+                content = currentTarget.getAttribute \data-tooltip
+                currentTarget = currentTarget.parentNode
+            while currentTarget isnt document and content is null
             return if not content
             content = unescape content
             return if not content.length
