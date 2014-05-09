@@ -3,6 +3,7 @@ window.Tooltip = class Tooltip
         @options.parent ?= $ 'body'
         @createElement!
         $ document .bind \mousemove @onMouseMove
+        $ document .bind \touchstart @onTouch
 
     watchElements: ->
         $ document .on \mouseover "[data-tooltip]" ({currentTarget}:evt) ~>
@@ -28,7 +29,7 @@ window.Tooltip = class Tooltip
         @$element.detach!
         @mouseBound = false
 
-    reposition: ([left, top, clientLeft, clientTop]) ->
+    reposition: ([left, top, clientLeft = 0, clientTop = 0]) ->
         dX = left - clientLeft
         dY = top - clientTop
         width = @$element.width!
@@ -66,3 +67,6 @@ window.Tooltip = class Tooltip
     onMouseMove: (evt) ~>
         @lastMousePosition = [evt.pageX, evt.pageY, evt.clientX, evt.clientY]
         if @mouseBound then @reposition @lastMousePosition
+
+    onTouch: (evt) ~>
+        @onMouseMove evt.originalEvent
